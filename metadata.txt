@@ -11,7 +11,7 @@
 [general]
 name=Tile Map Scale Plugin
 qgisMinimumVersion=1.8
-description=Set the scale to the next matching Tile Map Scale. Works best with Google Mercator Projection.
+description= Set the scale to the next matching Tile Map Scale. Otherwise tiled datasets will be fuzzy. Works best with Google Mercator Projection.
 version=0.1
 author=Matthias Ludwig - Datalyze Solutions
 email=development@datalyze-solutions.com
@@ -27,8 +27,8 @@ email=development@datalyze-solutions.com
 tags=Scale, TileMap, Google Maps, OSM, Openstreetmap, Bing Maps, TMS
 
 homepage=http://www.datalyze-solutions.com
-tracker=
-repository=
+tracker=http://hub.qgis.org/projects/tilemapscalelevels
+repository=https://github.com/datalyze-solutions-development/TileMapScaleLevels
 icon=icon.png
 # experimental flag
 experimental=False
