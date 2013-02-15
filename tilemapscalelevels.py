@@ -62,7 +62,8 @@ class TileMapScaleLevelPlugin:
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu(u"&Tile Map Scale Plugin", self.action)
-        QObject.connect(self.action, SIGNAL("triggered()"), self.showDock)
+        #QObject.connect(self.action, SIGNAL("triggered()"), self.showDock)
+        self.action.triggered.connect(self.showDock)
         
         
 	self.workingDir = os.path.dirname(os.path.abspath(__file__))
@@ -71,13 +72,18 @@ class TileMapScaleLevelPlugin:
                
 	self.readStatus()
         QObject.connect(self.canvas, SIGNAL("scaleChanged(double)"), self.scaleChanged)
-	QObject.connect(self.dock.sliderZoomlevels, SIGNAL("sliderReleased()"), self.sliderReleased)
-        QObject.connect(self.dock.spinBoxZoomlevels, SIGNAL("editingFinished()"), self.editingFinished)
-        QObject.connect(self.dock.checkBoxIsActive, SIGNAL("stateChanged(int)"), self.activationStateChanged)
-        QObject.connect(self.dock.buttonLoadOSM, SIGNAL("clicked()"), self.loadOSM)
+        #self.canvas.scaleChanged.connect(self.scaleChanged)
+	#QObject.connect(self.dock.sliderZoomlevels, SIGNAL("sliderReleased()"), self.sliderReleased)
+	self.dock.sliderZoomlevels.sliderReleased.connect(self.sliderReleased)
+        #QObject.connect(self.dock.spinBoxZoomlevels, SIGNAL("editingFinished()"), self.editingFinished)
+        self.dock.spinBoxZoomlevels.editingFinished.connect(self.editingFinished)
+        #QObject.connect(self.dock.checkBoxIsActive, SIGNAL("stateChanged(int)"), self.activationStateChanged)
+        self.dock.checkBoxIsActive.stateChanged.connect(self.activationStateChanged)
+        #QObject.connect(self.dock.buttonLoadOSM, SIGNAL("clicked()"), self.loadOSM)
+        self.dock.buttonLoadOSM.clicked.connect(self.loadOSM)
         
 	self.scaleCalculator = TileMapScaleLevels()
-      
+	
     def showDock(self):
 	if self.dock.isVisible():
 	  self.dock.hide()
@@ -112,6 +118,7 @@ class TileMapScaleLevelPlugin:
 	if self.dock.checkBoxIsActive.isChecked():
 	    # Disconnect to prevent infinite scaling loop
 	    QObject.disconnect(self.canvas, SIGNAL("scaleChanged(double)"), self.scaleChanged)
+	    #self.canvas.scaleChanged.disconnect(self.scaleChanged)
 	    
 	    zoomlevel = self.scaleCalculator.getZoomlevel(scale)
 	    if zoomlevel <> None:
@@ -120,6 +127,7 @@ class TileMapScaleLevelPlugin:
 		self.dock.labelCurrentZoomlevel.setText(str(zoomlevel))
 		self.dock.sliderZoomlevels.setValue(zoomlevel)
 	    QObject.connect(self.canvas, SIGNAL("scaleChanged(double)"), self.scaleChanged)
+	    #self.canvas.scaleChanged.connect(self.scaleChanged)
 
     def activationStateChanged(self):
       if self.dock.checkBoxIsActive.isChecked():
