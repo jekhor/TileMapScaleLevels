@@ -31,12 +31,10 @@ def description():
 
 
 def version():
-    return "Version 0.1"
-
+    return "Version 0.3"
 
 def icon():
     return "icon.png"
-
 
 def qgisMinimumVersion():
     return "1.8"
@@ -45,7 +43,7 @@ def author():
     return "Matthias Ludwig - Datalyze Solutions"
 
 def email():
-    return "m.ludwig@datalyze-solutions.com"
+    return "development@datalyze-solutions.com"
 
 def classFactory(iface):
     # load TileMapScaleLevels class from file TileMapScaleLevels

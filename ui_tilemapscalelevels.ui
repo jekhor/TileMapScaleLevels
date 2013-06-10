@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>308</width>
-    <height>148</height>
+    <width>261</width>
+    <height>309</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>524287</width>
+    <height>309</height>
+   </size>
   </property>
   <property name="floating">
    <bool>false</bool>
@@ -18,6 +30,19 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -57,23 +82,45 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="buttonLoadOSM">
-        <property name="toolTip">
-         <string>Load OSM Layer</string>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-        <property name="statusTip">
-         <string>Load OSM Layer</string>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
         </property>
-        <property name="text">
-         <string>OSM</string>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/icons/osm_icon.png</normaloff>:/icons/osm_icon.png</iconset>
-        </property>
-       </widget>
+       </spacer>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBoxUseMercator">
+      <property name="text">
+       <string>Use World Mercator System</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBoxUseOnTheFlyTransformation">
+      <property name="text">
+       <string>Use 'On-The-Fly' Transformation</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox">
@@ -97,6 +144,101 @@
           <number>25</number>
          </property>
         </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxDatasets">
+      <property name="title">
+       <string>Datasets</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QToolButton" name="buttonLoadOSM">
+           <property name="toolTip">
+            <string>Load OSM Layer</string>
+           </property>
+           <property name="statusTip">
+            <string>Load OSM Layer</string>
+           </property>
+           <property name="text">
+            <string>OSM</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/icons/osm.png</normaloff>:/icons/icons/osm.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="buttonLoadGoogleMaps">
+           <property name="toolTip">
+            <string>Load OSM Layer</string>
+           </property>
+           <property name="statusTip">
+            <string>Load OSM Layer</string>
+           </property>
+           <property name="text">
+            <string>OSM</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/icons/googlemaps.png</normaloff>:/icons/icons/googlemaps.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="buttonLoadGoogleSatellite">
+           <property name="toolTip">
+            <string>Load OSM Layer</string>
+           </property>
+           <property name="statusTip">
+            <string>Load OSM Layer</string>
+           </property>
+           <property name="text">
+            <string>OSM</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/icons/google_earth.png</normaloff>:/icons/icons/google_earth.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

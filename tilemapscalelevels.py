@@ -30,7 +30,7 @@ import math
 # Initialize Qt resources from file resources.py
 import resources_rc
 
-class TileMapScaleLevelPlugin:
+class TileMapScaleLevelPlugin():
 
     def __init__(self, iface):
         # Save reference to the QGIS interface
@@ -38,13 +38,14 @@ class TileMapScaleLevelPlugin:
         self.canvas = self.iface.mapCanvas()
         
         # initialize plugin directory
-        self.plugin_dir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + "/python/plugins/tilemapscalelevels"
+        self.workingDir = os.path.dirname(os.path.abspath(__file__))       
+        
         # initialize locale
         localePath = ""
         locale = QSettings().value("locale/userLocale").toString()[0:2]
 
-        if QFileInfo(self.plugin_dir).exists():
-            localePath = self.plugin_dir + "/i18n/tilemapscalelevels_" + locale + ".qm"
+        if QFileInfo(self.workingDir).exists():
+            localePath = self.workingDir + "/i18n/tilemapscalelevels_" + locale + ".qm"
 
         if QFileInfo(localePath).exists():
             self.translator = QTranslator()
@@ -64,11 +65,14 @@ class TileMapScaleLevelPlugin:
         self.iface.addPluginToMenu(u"&Tile Map Scale Plugin", self.action)
         #QObject.connect(self.action, SIGNAL("triggered()"), self.showDock)
         self.action.triggered.connect(self.showDock)
-        
-        
-	self.workingDir = os.path.dirname(os.path.abspath(__file__))
+                	
 	self.dock = uic.loadUi(os.path.join(self.workingDir, "ui_tilemapscalelevels.ui"))
-	self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dock)	
+	
+	self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dock)
+
+	self.projection = self.canvas.mapRenderer().destinationCrs()
+
+	self.canvas.enableAntiAliasing(True)
                
 	self.readStatus()
         QObject.connect(self.canvas, SIGNAL("scaleChanged(double)"), self.scaleChanged)
@@ -79,8 +83,12 @@ class TileMapScaleLevelPlugin:
         self.dock.spinBoxZoomlevels.editingFinished.connect(self.editingFinished)
         #QObject.connect(self.dock.checkBoxIsActive, SIGNAL("stateChanged(int)"), self.activationStateChanged)
         self.dock.checkBoxIsActive.stateChanged.connect(self.activationStateChanged)
+        self.dock.checkBoxUseMercator.stateChanged.connect(self.useMercator)
+        self.dock.checkBoxUseOnTheFlyTransformation.stateChanged.connect(self.useOnTheFlyTransformation)
         #QObject.connect(self.dock.buttonLoadOSM, SIGNAL("clicked()"), self.loadOSM)
         self.dock.buttonLoadOSM.clicked.connect(self.loadOSM)
+        self.dock.buttonLoadGoogleSatellite.clicked.connect(self.loadGoogleSatellite)
+        self.dock.buttonLoadGoogleMaps.clicked.connect(self.loadGoogleMaps)
         
 	self.scaleCalculator = TileMapScaleLevels()
 	
@@ -112,8 +120,14 @@ class TileMapScaleLevelPlugin:
 	pass
       
     def loadOSM(self):
-	self.iface.addRasterLayer(os.path.join(self.workingDir, "osm_mapnik.xml"), "raster")
+	self.iface.addRasterLayer(os.path.join(self.workingDir, "datasets", "osm_mapnik.xml"), "raster")
 
+    def loadGoogleSatellite(self):
+        self.iface.addRasterLayer(os.path.join(self.workingDir, "datasets", "google_satellite.xml"), "raster")
+
+    def loadGoogleMaps(self):
+        self.iface.addRasterLayer(os.path.join(self.workingDir, "datasets", "google_maps.xml"), "raster")
+        
     def scaleChanged(self, scale):
 	if self.dock.checkBoxIsActive.isChecked():
 	    # Disconnect to prevent infinite scaling loop
@@ -126,32 +140,51 @@ class TileMapScaleLevelPlugin:
 		self.canvas.zoomScale(newScale)
 		self.dock.labelCurrentZoomlevel.setText(str(zoomlevel))
 		self.dock.sliderZoomlevels.setValue(zoomlevel)
+		
 	    QObject.connect(self.canvas, SIGNAL("scaleChanged(double)"), self.scaleChanged)
 	    #self.canvas.scaleChanged.connect(self.scaleChanged)
 
     def activationStateChanged(self):
-      if self.dock.checkBoxIsActive.isChecked():
-	  self.dock.groupBox.show()
-      else:
-	  self.dock.groupBox.hide()
-      self.storeStatus()
+        if self.dock.checkBoxIsActive.isChecked():
+            self.dock.groupBox.show()
+        else:
+            self.dock.groupBox.hide()
+        self.storeStatus()
+
+    def useMercator(self):       
+        if self.dock.checkBoxUseMercator.isChecked():
+            coordinateReferenceSystem = QgsCoordinateReferenceSystem()
+            createCrs = coordinateReferenceSystem.createFromString("EPSG:900913")
+
+            if self.projection != coordinateReferenceSystem:
+                self.projection = self.canvas.mapRenderer().destinationCrs()
+            
+            self.canvas.mapRenderer().setDestinationCrs(coordinateReferenceSystem)
+        else:
+            self.canvas.mapRenderer().setDestinationCrs(self.projection)
+    
+    def useOnTheFlyTransformation(self):
+        if self.dock.checkBoxUseOnTheFlyTransformation.isChecked():
+            self.canvas.mapRenderer().setProjectionsEnabled(True)
+        else:
+            self.canvas.mapRenderer().setProjectionsEnabled(False)            
       
     def storeStatus(self):
-      s = QSettings()
-      s.setValue("tilemapscalelevels/active", self.dock.checkBoxIsActive.isChecked() )
+        s = QSettings()
+        s.setValue("tilemapscalelevels/active", self.dock.checkBoxIsActive.isChecked() )
 
     def readStatus(self):
-      s = QSettings()
-      isActive = s.value("tilemapscalelevels/active", True).toBool()
-      self.dock.checkBoxIsActive.setChecked(isActive)
+        s = QSettings()
+        isActive = s.value("tilemapscalelevels/active", True).toBool()
+        self.dock.checkBoxIsActive.setChecked(isActive)
 	    
 
 class TileMapScaleLevels:
     import math
     def __init__(self, dpi = 96):
-	self.dpi = dpi
-	self.inchesPerMeter = 39.37
-	self.maxScalePerPixel = 156543.04
+        self.dpi = dpi
+        self.inchesPerMeter = 39.37
+        self.maxScalePerPixel = 156543.04
 
     def getScale(self, zoomlevel):
 	if zoomlevel < 0:
