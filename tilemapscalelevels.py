@@ -87,6 +87,7 @@ class TileMapScaleLevelPlugin():
         self.dock.checkBoxUseOnTheFlyTransformation.stateChanged.connect(self.useOnTheFlyTransformation)
         #QObject.connect(self.dock.buttonLoadOSM, SIGNAL("clicked()"), self.loadOSM)
         self.dock.buttonLoadOSM.clicked.connect(self.loadOSM)
+        self.dock.buttonLoadMapQuest.clicked.connect(self.loadMapQuest)
         self.dock.buttonLoadGoogleSatellite.clicked.connect(self.loadGoogleSatellite)
         self.dock.buttonLoadGoogleMaps.clicked.connect(self.loadGoogleMaps)
         
@@ -121,6 +122,9 @@ class TileMapScaleLevelPlugin():
       
     def loadOSM(self):
 	self.iface.addRasterLayer(os.path.join(self.workingDir, "datasets", "osm_mapnik.xml"), "raster")
+
+    def loadMapQuest(self):
+	self.iface.addRasterLayer(os.path.join(self.workingDir, "datasets", "osm_mapquest_open.xml"), "raster")
 
     def loadGoogleSatellite(self):
         self.iface.addRasterLayer(os.path.join(self.workingDir, "datasets", "google_satellite.xml"), "raster")

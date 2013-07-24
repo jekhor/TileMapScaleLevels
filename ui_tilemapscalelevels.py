@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui_tilemapscalelevels.ui'
 #
-# Created: Mon Jun 10 17:52:01 2013
-#      by: PyQt4 UI code generator 4.9.1
+# Created: Wed Jul 24 09:51:11 2013
+#      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,13 +12,22 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_DockWidgetTileMapScaleLevels(object):
     def setupUi(self, DockWidgetTileMapScaleLevels):
         DockWidgetTileMapScaleLevels.setObjectName(_fromUtf8("DockWidgetTileMapScaleLevels"))
         DockWidgetTileMapScaleLevels.resize(261, 309)
-        DockWidgetTileMapScaleLevels.setMinimumSize(QtCore.QSize(0, 0))
+        DockWidgetTileMapScaleLevels.setMinimumSize(QtCore.QSize(255, 291))
         DockWidgetTileMapScaleLevels.setMaximumSize(QtCore.QSize(524287, 309))
         DockWidgetTileMapScaleLevels.setFloating(False)
         self.dockWidgetContents = QtGui.QWidget()
@@ -71,9 +80,7 @@ class Ui_DockWidgetTileMapScaleLevels(object):
         self.verticalLayout_2.addWidget(self.groupBox)
         self.groupBoxDatasets = QtGui.QGroupBox(self.dockWidgetContents)
         self.groupBoxDatasets.setObjectName(_fromUtf8("groupBoxDatasets"))
-        self.verticalLayout_3 = QtGui.QVBoxLayout(self.groupBoxDatasets)
-        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
-        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.groupBoxDatasets)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.buttonLoadOSM = QtGui.QToolButton(self.groupBoxDatasets)
         icon = QtGui.QIcon()
@@ -82,6 +89,11 @@ class Ui_DockWidgetTileMapScaleLevels(object):
         self.buttonLoadOSM.setIconSize(QtCore.QSize(32, 32))
         self.buttonLoadOSM.setObjectName(_fromUtf8("buttonLoadOSM"))
         self.horizontalLayout_2.addWidget(self.buttonLoadOSM)
+        self.buttonLoadMapQuest = QtGui.QToolButton(self.groupBoxDatasets)
+        self.buttonLoadMapQuest.setIcon(icon)
+        self.buttonLoadMapQuest.setIconSize(QtCore.QSize(32, 32))
+        self.buttonLoadMapQuest.setObjectName(_fromUtf8("buttonLoadMapQuest"))
+        self.horizontalLayout_2.addWidget(self.buttonLoadMapQuest)
         self.buttonLoadGoogleMaps = QtGui.QToolButton(self.groupBoxDatasets)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/icons/googlemaps.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -96,9 +108,8 @@ class Ui_DockWidgetTileMapScaleLevels(object):
         self.buttonLoadGoogleSatellite.setIconSize(QtCore.QSize(32, 32))
         self.buttonLoadGoogleSatellite.setObjectName(_fromUtf8("buttonLoadGoogleSatellite"))
         self.horizontalLayout_2.addWidget(self.buttonLoadGoogleSatellite)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem2 = QtGui.QSpacerItem(54, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem2)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
         self.verticalLayout_2.addWidget(self.groupBoxDatasets)
         DockWidgetTileMapScaleLevels.setWidget(self.dockWidgetContents)
 
@@ -108,22 +119,25 @@ class Ui_DockWidgetTileMapScaleLevels(object):
         QtCore.QMetaObject.connectSlotsByName(DockWidgetTileMapScaleLevels)
 
     def retranslateUi(self, DockWidgetTileMapScaleLevels):
-        DockWidgetTileMapScaleLevels.setWindowTitle(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Tile Map Scale Levels", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBoxIsActive.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Active", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Current Zoomlevel:", None, QtGui.QApplication.UnicodeUTF8))
-        self.labelCurrentZoomlevel.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "0", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBoxUseMercator.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Use World Mercator System", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBoxUseOnTheFlyTransformation.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Use \'On-The-Fly\' Transformation", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox.setTitle(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Zoomlevel", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBoxDatasets.setTitle(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Datasets", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadOSM.setToolTip(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadOSM.setStatusTip(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadOSM.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "OSM", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadGoogleMaps.setToolTip(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadGoogleMaps.setStatusTip(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadGoogleMaps.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "OSM", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadGoogleSatellite.setToolTip(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadGoogleSatellite.setStatusTip(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonLoadGoogleSatellite.setText(QtGui.QApplication.translate("DockWidgetTileMapScaleLevels", "OSM", None, QtGui.QApplication.UnicodeUTF8))
+        DockWidgetTileMapScaleLevels.setWindowTitle(_translate("DockWidgetTileMapScaleLevels", "Tile Map Scale Levels", None))
+        self.checkBoxIsActive.setText(_translate("DockWidgetTileMapScaleLevels", "Active", None))
+        self.label.setText(_translate("DockWidgetTileMapScaleLevels", "Current Zoomlevel:", None))
+        self.labelCurrentZoomlevel.setText(_translate("DockWidgetTileMapScaleLevels", "0", None))
+        self.checkBoxUseMercator.setText(_translate("DockWidgetTileMapScaleLevels", "Use World Mercator System", None))
+        self.checkBoxUseOnTheFlyTransformation.setText(_translate("DockWidgetTileMapScaleLevels", "Use \'On-The-Fly\' Transformation", None))
+        self.groupBox.setTitle(_translate("DockWidgetTileMapScaleLevels", "Zoomlevel", None))
+        self.groupBoxDatasets.setTitle(_translate("DockWidgetTileMapScaleLevels", "Datasets", None))
+        self.buttonLoadOSM.setToolTip(_translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None))
+        self.buttonLoadOSM.setStatusTip(_translate("DockWidgetTileMapScaleLevels", "Load OSM Layer", None))
+        self.buttonLoadOSM.setText(_translate("DockWidgetTileMapScaleLevels", "OSM", None))
+        self.buttonLoadMapQuest.setToolTip(_translate("DockWidgetTileMapScaleLevels", "Load MapQuest Layer", None))
+        self.buttonLoadMapQuest.setStatusTip(_translate("DockWidgetTileMapScaleLevels", "Load MapQuest Layer", None))
+        self.buttonLoadMapQuest.setText(_translate("DockWidgetTileMapScaleLevels", "OSM", None))
+        self.buttonLoadGoogleMaps.setToolTip(_translate("DockWidgetTileMapScaleLevels", "Load Google Maps Layer", None))
+        self.buttonLoadGoogleMaps.setStatusTip(_translate("DockWidgetTileMapScaleLevels", "Load Google Maps Layer", None))
+        self.buttonLoadGoogleMaps.setText(_translate("DockWidgetTileMapScaleLevels", "OSM", None))
+        self.buttonLoadGoogleSatellite.setToolTip(_translate("DockWidgetTileMapScaleLevels", "Load Google Satellite Layer", None))
+        self.buttonLoadGoogleSatellite.setStatusTip(_translate("DockWidgetTileMapScaleLevels", "Load Google Satellite Layer", None))
+        self.buttonLoadGoogleSatellite.setText(_translate("DockWidgetTileMapScaleLevels", "OSM", None))
 
 import resources_rc
