@@ -42,7 +42,7 @@ class TileMapScaleLevelPlugin():
         
         # initialize locale
         localePath = ""
-        locale = QSettings().value("locale/userLocale").toString()[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
 
         if QFileInfo(self.workingDir).exists():
             localePath = self.workingDir + "/i18n/tilemapscalelevels_" + locale + ".qm"
@@ -175,7 +175,7 @@ class TileMapScaleLevelPlugin():
 
     def readStatus(self):
         s = QSettings()
-        isActive = s.value("tilemapscalelevels/active", True).toBool()
+        isActive = s.value("tilemapscalelevels/active", True)
         self.dock.checkBoxIsActive.setChecked(isActive)
 	    
 
