@@ -179,7 +179,7 @@ class TileMapScaleLevelPlugin():
 
     def readStatus(self):
         s = QSettings()
-        isActive = s.value("tilemapscalelevels/active", True)
+        isActive = s.value("tilemapscalelevels/active", True, type=bool)
         self.dock.checkBoxIsActive.setChecked(isActive)
 	    
 
